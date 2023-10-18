@@ -83,7 +83,11 @@ function App() {
 											content={task} 
 
 											onDeleteTask={deleteTask}
+
+											countCreatedTasks={countCreatedTasks} 
 											countFinishedTasks={countFinishedTasks} 
+											
+											setCountCreatedTasks={setCountCreatedTasks}
 											setCountFinishedTasks={setCountFinishedTasks} 
 										/>
 									: null
