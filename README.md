@@ -1,4 +1,4 @@
-# Project To Do List
+# Projeto To Do List
 
 Esse template foi pensado e feito pela Rocketseat.
 
