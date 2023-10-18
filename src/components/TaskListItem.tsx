@@ -4,14 +4,22 @@ import { Trash       } from "phosphor-react";
 
 interface TaskList {
     content: string;
+    countCreatedTasks: number;
     countFinishedTasks: number;
 
     onDeleteTask: (task: string) => void;
+    setCountCreatedTasks: (countCreatedTasks:number) => void;
     setCountFinishedTasks: (countFinishedTasks:number) => void;
 }
 
 
-export function TaskListItem ({ content, countFinishedTasks,  setCountFinishedTasks, onDeleteTask }:TaskList) {
+export function TaskListItem ({ 
+    content, 
+    countCreatedTasks,
+    countFinishedTasks,
+    setCountCreatedTasks,  
+    setCountFinishedTasks, 
+    onDeleteTask }:TaskList) {
 
    function handleFinishedTask (event: ChangeEvent<HTMLInputElement>) {
         if (event.target.checked) 
@@ -22,8 +30,10 @@ export function TaskListItem ({ content, countFinishedTasks,  setCountFinishedTa
 
     function handleDeleteTask () {
         onDeleteTask(content);
-        // console.log(content);
+        setCountCreatedTasks(countCreatedTasks - 1);
+        setCountFinishedTasks(countFinishedTasks - 1);
     }
+
 
     return (
         <>
