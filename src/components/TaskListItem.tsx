@@ -31,7 +31,9 @@ export function TaskListItem ({
     function handleDeleteTask () {
         onDeleteTask(content);
         setCountCreatedTasks(countCreatedTasks - 1);
-        setCountFinishedTasks(countFinishedTasks - 1);
+
+        if (countFinishedTasks > 0)
+            setCountFinishedTasks(countFinishedTasks - 1);
     }
 
 
