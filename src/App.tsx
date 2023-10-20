@@ -10,18 +10,25 @@ import "./global.css";
 
 
 function App() {
-	const [tasks, setTasks] = useState(['']); 
     const [newTask, setNewTask] = useState(''); 
 
 	const [countCreatedTasks, setCountCreatedTasks] = useState(0);
 	const [countFinishedTasks, setCountFinishedTasks] = useState(0);
 
-    
+
+	const [tasks, setTasks] = useState([
+		{
+			content: '',
+			isChecked: false,
+		}
+	]);
+
+	
     function handleAddNewTask (event: FormEvent) {
         event.preventDefault();
 
 		if (tasks.length) {
-			setTasks([...tasks, newTask]);
+			setTasks([...tasks, {content: newTask, isChecked: false}]);
 		}
 
 		setCountCreatedTasks(tasks.length);
@@ -29,11 +36,12 @@ function App() {
 	
 	const isTaskEmpty = newTask.length === 0;  
 
+
 	function deleteTask (taskToDelete: string) {
 		let tasksWithoutDeletedOne = tasks.filter(task => {
-			return task != taskToDelete
+			return task.content != taskToDelete
 		})
-
+			
 		setTasks(tasksWithoutDeletedOne);
 	}
 
@@ -73,25 +81,18 @@ function App() {
 					
 
 					<div className={styles.list}>
-
 						{ tasks.length > 1 ? 
 							<ul className={styles.notEmpty}>
-								{tasks.map((task, index) => (
-									task != "" ?
-										<TaskListItem 
-											key={index+task} 
-											content={task} 
+								<TaskListItem 
+									taskProps={tasks} 
+									onDeleteTask={deleteTask}
 
-											onDeleteTask={deleteTask}
-
-											countCreatedTasks={countCreatedTasks} 
-											countFinishedTasks={countFinishedTasks} 
-											
-											setCountCreatedTasks={setCountCreatedTasks}
-											setCountFinishedTasks={setCountFinishedTasks} 
-										/>
-									: null
-								))}
+									countCreatedTasks={countCreatedTasks} 
+									countFinishedTasks={countFinishedTasks} 
+									
+									setCountCreatedTasks={setCountCreatedTasks}
+									setCountFinishedTasks={setCountFinishedTasks} 
+								/>
 							</ul>
 						: 
 							<div className={styles.empty}>
@@ -108,4 +109,4 @@ function App() {
 	)
 }
 
-export default App
+export default App;
